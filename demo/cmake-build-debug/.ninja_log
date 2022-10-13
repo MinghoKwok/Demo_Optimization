@@ -1,0 +1,6 @@
+# ninja log v5
+1	767	1665670654965748310	CMakeFiles/demo.dir/main.cpp.o	3d958acc92f8e11c
+2	1629	1665676207464746702	CMakeFiles/demo.dir/src/Parser_regex.cpp.o	18842fab7ac4ab58
+1	644	1665676187598681503	CMakeFiles/demo.dir/src/main.cpp.o	5decaff5313f296e
+0	107	1665677507446751871	build.ninja	c93b554bfbd8793e
+1629	1727	1665676207566778917	demo	dc8834a42d70f438

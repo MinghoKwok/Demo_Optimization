@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.22"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "Release",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "demo::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-demo-Debug-9fed26d563bf755656dd.json",
+					"jsonFile" : "target-demo-Release-e990dc6b1ddd357d155a.json",
 					"name" : "demo",
 					"projectIndex" : 0
 				}
@@ -49,7 +49,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/kwok/Downloads/Demo_Optimization/demo/cmake-build-debug",
+		"build" : "/Users/kwok/Downloads/Demo_Optimization/demo/cmake-build-release",
 		"source" : "/Users/kwok/Downloads/Demo_Optimization/demo"
 	},
 	"version" : 
