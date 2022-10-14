@@ -55,12 +55,6 @@ build CMakeFiles/demo.dir/src/main.cpp.o: CXX_COMPILER__demo_Debug /Users/kwok/D
   OBJECT_DIR = CMakeFiles/demo.dir
   OBJECT_FILE_DIR = CMakeFiles/demo.dir/src
 
-build CMakeFiles/demo.dir/src/Parser_regex.cpp.o: CXX_COMPILER__demo_Debug /Users/kwok/Downloads/Demo_Optimization/demo/src/Parser_regex.cpp || cmake_object_order_depends_target_demo
-  DEP_FILE = CMakeFiles/demo.dir/src/Parser_regex.cpp.o.d
-  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -std=gnu++14
-  OBJECT_DIR = CMakeFiles/demo.dir
-  OBJECT_FILE_DIR = CMakeFiles/demo.dir/src
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target demo
@@ -69,7 +63,7 @@ build CMakeFiles/demo.dir/src/Parser_regex.cpp.o: CXX_COMPILER__demo_Debug /User
 #############################################
 # Link the executable demo
 
-build demo: CXX_EXECUTABLE_LINKER__demo_Debug CMakeFiles/demo.dir/src/main.cpp.o CMakeFiles/demo.dir/src/Parser_regex.cpp.o
+build demo: CXX_EXECUTABLE_LINKER__demo_Debug CMakeFiles/demo.dir/src/main.cpp.o
   FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk
   OBJECT_DIR = CMakeFiles/demo.dir
   POST_BUILD = :

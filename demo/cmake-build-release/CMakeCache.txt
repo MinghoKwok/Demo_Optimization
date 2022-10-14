@@ -211,7 +211,25 @@ demo_BINARY_DIR:STATIC=/Users/kwok/Downloads/Demo_Optimization/demo/cmake-build-
 demo_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
+demo_Regex_BINARY_DIR:STATIC=/Users/kwok/Downloads/Demo_Optimization/demo/cmake-build-release
+
+//Value Computed by CMake
+demo_Regex_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+demo_Regex_SOURCE_DIR:STATIC=/Users/kwok/Downloads/Demo_Optimization/demo
+
+//Value Computed by CMake
 demo_SOURCE_DIR:STATIC=/Users/kwok/Downloads/Demo_Optimization/demo
+
+//Value Computed by CMake
+demo_noRegex_BINARY_DIR:STATIC=/Users/kwok/Downloads/Demo_Optimization/demo/cmake-build-release
+
+//Value Computed by CMake
+demo_noRegex_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+demo_noRegex_SOURCE_DIR:STATIC=/Users/kwok/Downloads/Demo_Optimization/demo
 
 
 ########################

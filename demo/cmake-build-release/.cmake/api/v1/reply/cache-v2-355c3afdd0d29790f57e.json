@@ -1102,7 +1102,79 @@
 			"value" : "ON"
 		},
 		{
+			"name" : "demo_Regex_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/Users/kwok/Downloads/Demo_Optimization/demo/cmake-build-release"
+		},
+		{
+			"name" : "demo_Regex_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "demo_Regex_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/Users/kwok/Downloads/Demo_Optimization/demo"
+		},
+		{
 			"name" : "demo_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/Users/kwok/Downloads/Demo_Optimization/demo"
+		},
+		{
+			"name" : "demo_noRegex_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/Users/kwok/Downloads/Demo_Optimization/demo/cmake-build-release"
+		},
+		{
+			"name" : "demo_noRegex_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "demo_noRegex_SOURCE_DIR",
 			"properties" : 
 			[
 				{

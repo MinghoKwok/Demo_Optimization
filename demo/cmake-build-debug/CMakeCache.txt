@@ -213,6 +213,15 @@ demo_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 demo_SOURCE_DIR:STATIC=/Users/kwok/Downloads/Demo_Optimization/demo
 
+//Value Computed by CMake
+demo_noRegex_BINARY_DIR:STATIC=/Users/kwok/Downloads/Demo_Optimization/demo/cmake-build-debug
+
+//Value Computed by CMake
+demo_noRegex_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+demo_noRegex_SOURCE_DIR:STATIC=/Users/kwok/Downloads/Demo_Optimization/demo
+
 
 ########################
 # INTERNAL cache entries
