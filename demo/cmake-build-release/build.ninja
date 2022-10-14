@@ -51,7 +51,15 @@ build cmake_object_order_depends_target_demo: phony || CMakeFiles/demo.dir
 
 build CMakeFiles/demo.dir/src/main.cpp.o: CXX_COMPILER__demo_Release /Users/kwok/Downloads/Demo_Optimization/demo/src/main.cpp || cmake_object_order_depends_target_demo
   DEP_FILE = CMakeFiles/demo.dir/src/main.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -std=gnu++14
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -std=gnu++17
+  INCLUDES = -I/Users/kwok/Downloads/Demo_Optimization/demo/include
+  OBJECT_DIR = CMakeFiles/demo.dir
+  OBJECT_FILE_DIR = CMakeFiles/demo.dir/src
+
+build CMakeFiles/demo.dir/src/parser_regex.cpp.o: CXX_COMPILER__demo_Release /Users/kwok/Downloads/Demo_Optimization/demo/src/parser_regex.cpp || cmake_object_order_depends_target_demo
+  DEP_FILE = CMakeFiles/demo.dir/src/parser_regex.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -std=gnu++17
+  INCLUDES = -I/Users/kwok/Downloads/Demo_Optimization/demo/include
   OBJECT_DIR = CMakeFiles/demo.dir
   OBJECT_FILE_DIR = CMakeFiles/demo.dir/src
 
@@ -63,7 +71,7 @@ build CMakeFiles/demo.dir/src/main.cpp.o: CXX_COMPILER__demo_Release /Users/kwok
 #############################################
 # Link the executable demo
 
-build demo: CXX_EXECUTABLE_LINKER__demo_Release CMakeFiles/demo.dir/src/main.cpp.o
+build demo: CXX_EXECUTABLE_LINKER__demo_Release CMakeFiles/demo.dir/src/main.cpp.o CMakeFiles/demo.dir/src/parser_regex.cpp.o
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk
   OBJECT_DIR = CMakeFiles/demo.dir
   POST_BUILD = :

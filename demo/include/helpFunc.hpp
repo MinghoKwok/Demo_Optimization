@@ -6,9 +6,8 @@
 
 using namespace std;
 
-vector<string> getMatch(string reg, string inputStr);
-
 vector<string> getMatch(string reg, string inputStr) {
+//    cout<<reg<<endl;
     regex ip_reg(reg);
     smatch matchResult;
     vector<string> res;
@@ -20,7 +19,7 @@ vector<string> getMatch(string reg, string inputStr) {
             res.push_back((string)matchResult[i]);
         }
     } else {
-        //cout << "Not Match!";
+        cout <<inputStr<<"-"<< "Not Match!" << endl;
     }
 
     return res;
