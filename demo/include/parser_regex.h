@@ -11,6 +11,7 @@ public:
     void initial(std::string dataPath);
     std::vector<std::pair<std::string, std::string>> match_regex();
     std::vector<std::pair<std::string, std::string>> match_regex_multiThread(int threadCount);
+    std::vector<std::pair<std::string, std::string>> match_regex_OpenMP(int threadCount);
 private:
     int lineNum_;
     char** allLines_ = nullptr;

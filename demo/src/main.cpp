@@ -9,9 +9,11 @@ int main() {
     parser_regex* pr = new parser_regex();
     pr->initial(dataPath);
 
-    pr->match_regex();
+//    pr->match_regex();
 
     pr->match_regex_multiThread(4);
+
+    pr->match_regex_OpenMP(4);
 
     return 0;
 }

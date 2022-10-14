@@ -1,18 +1,13 @@
-//
-// Created by Minghao Guo on 2022/10/14.
-//
-
 #include <iostream>
 #include <fstream>
 #include <thread>
-#include <mutex>
 #include <string.h>
-#include <regex>
 #include <algorithm>
 #include <filesystem>
 #include <stdio.h>
 #include "../include/helpFunc.hpp"
 #include "../include/parser_regex.h"
+#include "/usr/local/opt/libomp/include/omp.h"
 
 using namespace std;
 
@@ -74,8 +69,8 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex() {
         if (str.find("/*") != str.npos) {
 //            cout<< str << "-";
             vector<string> offset_code = getMatch(REGEX_EXPRESION,str);
-//            cout<< offset_code[0] << ":" << offset_code[1] <<endl;
-            store.push_back(pair<string, string>(offset_code[0], offset_code[1]));
+//            cout<< offset_code[0] << ":" << offset_code[2] <<endl;
+            store.push_back(pair<string, string>(offset_code[0], offset_code[2]));
         }
     }
     return store;
@@ -94,7 +89,7 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_multi
             if (str.find("/*") != str.npos) {
                 vector<string> offset_code = getMatch(REGEX_EXPRESION, str);
                 //cout << offset_code[0] << "  " << offset_code[2] << endl;
-                store_part.push_back(pair<string, string>(offset_code[0], offset_code[1]));
+                store_part.push_back(pair<string, string>(offset_code[0], offset_code[2]));
             }
         }
         m->lock();
@@ -118,7 +113,31 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_multi
     return store;
 }
 
+std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_OpenMP(int threadCount) {
+    std::vector<std::pair<std::string, std::string>> store;
+    omp_set_num_threads(threadCount);
+    std::vector<std::vector<std::pair<std::string, std::string>>>  store_thread(4);
 
+#pragma omp parallel
+    {
+#pragma omp for
+        for (int i = 0; i < lineNum_; i++) {
+            string str(allLines_[i]);
+//        cout<< str << "-"<<endl;
+            if (str.find("/*") != str.npos) {
+//            cout<< str << "-" << endl;
+                vector<string> offset_code = getMatch(REGEX_EXPRESION,str);
+                //cout<< offset_code[0] << ":" << offset_code[2] <<endl;
+                store_thread[omp_get_thread_num()].push_back(pair<string, string>(offset_code[0], offset_code[2]));
+            }
+        }
+    }
+    for (std::vector<std::pair<std::string, std::string>> st : store_thread) {
+        store.insert(store.end(), st.begin(), st.end());
+    }
+
+    return store;
+}
 
 
 
