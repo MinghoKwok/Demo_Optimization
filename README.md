@@ -70,11 +70,11 @@ In this part, the running time is nearly the same as the multi-thread one.
 
 (3)	SIMD
 
-After implementing multi-thread ways in ***for*** loop, I began to consider optimize regex procedure itself. Considering that it may be hard to matching one string in a multi-thread way, I think SIMD may be suitable for it.
+After implementing multi-thread ways in ***for*** loop, I began to consider optimizing regex procedure itself. Considering that it may be hard to matching one string in a multi-thread way, I think SIMD may be suitable for it.
 
 I used an API named rejit based on SIMD to optimize the regex function. This part is implemented in ***include/help_func.hpp***.
 
-After testing the program after using SIMD in regex function, the running time is changed less. By 
+After testing the program after using SIMD in regex function, the running time is changed less. 
 
 ### Non-parallel Ways
 
