@@ -6,7 +6,7 @@
 #include <filesystem>
 #include <stdio.h>
 #include <omp.h>
-#include "helpFunc.hpp"
+#include "help_func.hpp"
 #include "parser_regex.h"
 
 using namespace std;
@@ -68,7 +68,7 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex() {
 //        cout<< str << "-"<<endl;
         if (str.find("/*") != str.npos) {
 //            cout<< str << "-";
-            vector<string> offset_code = getMatch(REGEX_EXPRESION,str);
+            vector<string> offset_code = get_match(REGEX_EXPRESION,str);
 //            cout<< offset_code[0] << ":" << offset_code[2] <<endl;
             store.push_back(pair<string, string>(offset_code[0], offset_code[0]));
         }
@@ -87,7 +87,7 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_multi
         for (int j = dataIdxStart; j < dataIdxEnd; j++) {
             string str(data[j]);
             if (str.find("/*") != str.npos) {
-                vector<string> offset_code = getMatch(REGEX_EXPRESION, str);
+                vector<string> offset_code = get_match(REGEX_EXPRESION, str);
                 //cout << offset_code[0] << "  " << offset_code[2] << endl;
                 store_part.push_back(pair<string, string>(offset_code[0], offset_code[0]));
             }
@@ -126,7 +126,7 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_OpenM
 //        cout<< str << "-"<<endl;
             if (str.find("/*") != str.npos) {
 //            cout<< str << "-" << endl;
-                vector<string> offset_code = getMatch(REGEX_EXPRESION,str);
+                vector<string> offset_code = get_match(REGEX_EXPRESION,str);
                 //cout<< offset_code[0] << ":" << offset_code[2] <<endl;
                 store_thread[omp_get_thread_num()].push_back(pair<string, string>(offset_code[0], offset_code[0]));
             }

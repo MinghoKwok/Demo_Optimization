@@ -1,5 +1,5 @@
-#ifndef DEMO_HELPFUNC_HPP
-#define DEMO_HELPFUNC_HPP
+#ifndef DEMO_HELP_FUNC_HPP
+#define DEMO_HELP_FUNC_HPP
 
 #include <iostream>
 #include <regex>
@@ -12,7 +12,7 @@ char buffer[64*1024];
 
 using namespace std;
 
-vector<string> getMatch(string reg, string inputStr) {
+vector<string> get_match(string reg, string inputStr) {
     vector<string> res;
 #ifdef  SIMD_MATCH
     rejit::Regej re(reg);
@@ -48,4 +48,4 @@ vector<string> getMatch(string reg, string inputStr) {
 //}
 
 
-#endif //DEMO_HELPFUNC_HPP
+#endif //DEMO_HELP_FUNC_HPP

@@ -7,7 +7,7 @@ A small demo to show the progress of optimization in a parser
 
 ### Function
 
-Match offset and its corresponding assembly code in the file, and then store them.
+Match lines with offset and assembly code in the file given in the dataset, and then store them.
 
 ### Environment
 
@@ -52,9 +52,11 @@ Ways to optimize could be divided by two types: parallel ways and non-parallel w
 
 ### Parallel Ways
 
-Firstly, I optimized the demo by multi-thread ways.
+Firstly, I optimized the demo by parallel ways.
 
-(1)	Multiple Thread
+(1)	Multiple Threads
+
+It is easy to find that the progress of matching each line by regex in the ***for*** loop is so suitable to be implemented by multple threads, because each loop is independent to others.
 
 I implemented **match_regex_multiThread** function by creating threads by myself. I set 4 threads to match the strings.
 
@@ -66,18 +68,39 @@ Then I think OpenMP may be better than the multi-thread function written by me. 
 
 In this part, the running time is nearly the same as the multi-thread one.
 
+(3)	SIMD
 
+After implementing multi-thread ways in ***for*** loop, I began to consider optimize regex procedure itself. Considering that it may be hard to matching one string in a multi-thread way, I think SIMD may be suitable for it.
+
+I used an API named rejit based on SIMD to optimize the regex function. This part is implemented in ***include/help_func.hpp***.
+
+After testing the program after using SIMD in regex function, the running time is changed less. By 
 
 ### Non-parallel Ways
 
 After optimizing the demo by multi-thread ways, I focus on non-multi-thread part.
 
-By analyzing the complexity of regular expression, which is higher than linear ways (match and extract substring by c++ string function), and using CLion profiler to analyze the program, I guess that the performance may be better after replacing regex ways.
+(1) ***getline*** function of C++ took up large part of time, which was found by profiler. After searching, I learned that using ***fgets()*** of C by buffer could be quicker. Then I transformed the reading way to **fgets()** and gained a good improvement. 
+
+(2)
+
+By analyzing the complexity of regular expression, which is higher than linear ways (match and extract substring by c++ string function), and using CLion profiler to analyze the program, I guess that the performance may be much better after replacing regex ways by string functions. Of course, the standard format of the input file is required.
+
+The result of experiment could also prove this point. In order to make the comparison more meaningful, I change the requirement of the function to: Match offset and its corresponding assembly code in the file, and then store them. 
+
+Unfortunately, I didn't find methods in rejit API which could complete this requirement. So in this part, the SIMD way could not be compared. The visulized result is followed. As we can see, after replacing regex, the running time decreased so much.
+
+![image-20221015000059647](images/image-20221015000059647.png)
 
 
+
+However, if the input file is not standard enough, there may be wrong match results. Thus, the performance of methods without regex would not be showed in the final experiment result. 
+
+Though this method is not safe and general enough in many situations, we still could use more determine statements to avoid invalid regex match.
 
 
 
 ## Experiment Visualized Results
 
-![image-20221015000059647](images/image-20221015000059647.png)
+
+
