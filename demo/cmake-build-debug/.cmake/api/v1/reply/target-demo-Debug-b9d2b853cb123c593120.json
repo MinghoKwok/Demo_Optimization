@@ -82,7 +82,7 @@
 				[
 					1
 				],
-				"standard" : "17;-pthread;-fopenmp"
+				"standard" : "17;-pthread;-fopenmp;-ftree-vectorize"
 			},
 			"sourceIndexes" : 
 			[

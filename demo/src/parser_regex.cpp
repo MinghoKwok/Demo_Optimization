@@ -44,11 +44,11 @@ void parser_regex::initial(string dataPath) {
     vector<char*> lines;
     while (!feof(fp)) {
         fgets(buf, sizeof buf, fp);
-        string tempStr(buf);
+        string str(buf);
 
-        const char* tempCStr = tempStr.c_str();
+        const char* tempCStr = str.c_str();
 //        cout << tempCStr << endl;
-        size_t tempStrSize = tempStr.size();
+        size_t tempStrSize = str.size();
         char* line = (char*) malloc(tempStrSize * sizeof (char));
         lines.push_back(line);
         memcpy(line, tempCStr, tempStrSize);
@@ -139,7 +139,44 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_OpenM
     return store;
 }
 
+std::vector<std::pair<std::string, std::string>> parser_regex::match_noRegex_OpenMP(int threadCount) {
+    std::vector<std::pair<std::string, std::string>> store;
+    omp_set_num_threads(threadCount);
+    std::vector<std::vector<std::pair<std::string, std::string>>>  store_thread(4);
 
+    // OpenMP
+#pragma omp parallel
+    {
+#pragma omp for
+        for (int i = 0; i < lineNum_; i++) {
+            string str(allLines_[i]);
+
+            if (str.empty())
+                continue;
+            str.erase(0, str.find_first_not_of(" \t"));
+            if (str.size() >= 0 && str[1] == '*' && str[0] == '/') {
+
+                // match offset and assembly code
+                string offset = str.substr(2, str.find("*/") - 2);
+
+                // erase all text before assembly code
+                str.erase(0, str.find_first_of(" "));
+                str.erase(0, str.find_first_not_of(" "));
+
+                // Extract assembly code
+                string code = str.substr(0, str.find_first_of(";"));
+//                cout << offset << ":" << code << endl;
+                store_thread[omp_get_thread_num()].push_back(pair<string, string>(offset, code));
+            }
+        }
+    }
+
+    for (std::vector<std::pair<std::string, std::string>> st : store_thread) {
+        store.insert(store.end(), st.begin(), st.end());
+    }
+
+    return store;
+}
 
 
 

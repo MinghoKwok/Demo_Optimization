@@ -12,6 +12,7 @@ public:
     std::vector<std::pair<std::string, std::string>> match_regex();
     std::vector<std::pair<std::string, std::string>> match_regex_multiThread(int threadCount);
     std::vector<std::pair<std::string, std::string>> match_regex_OpenMP(int threadCount);
+    std::vector<std::pair<std::string, std::string>> match_noRegex_OpenMP(int threadCount);
 private:
     int lineNum_;
     char** allLines_ = nullptr;
