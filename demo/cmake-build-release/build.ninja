@@ -52,14 +52,14 @@ build cmake_object_order_depends_target_demo: phony || CMakeFiles/demo.dir
 build CMakeFiles/demo.dir/src/main.cpp.o: CXX_COMPILER__demo_Release /Users/kwok/Downloads/Demo_Optimization/demo/src/main.cpp || cmake_object_order_depends_target_demo
   DEP_FILE = CMakeFiles/demo.dir/src/main.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -Xclang -fopenmp -std=gnu++17
-  INCLUDES = -I/Users/kwok/Downloads/Demo_Optimization/demo/include -isystem /usr/local/include
+  INCLUDES = -I/Users/kwok/Downloads/Demo_Optimization/demo/include -I/Users/kwok/Downloads/Demo_Optimization/demo/third_library/rejit/include -isystem /usr/local/include
   OBJECT_DIR = CMakeFiles/demo.dir
   OBJECT_FILE_DIR = CMakeFiles/demo.dir/src
 
 build CMakeFiles/demo.dir/src/parser_regex.cpp.o: CXX_COMPILER__demo_Release /Users/kwok/Downloads/Demo_Optimization/demo/src/parser_regex.cpp || cmake_object_order_depends_target_demo
   DEP_FILE = CMakeFiles/demo.dir/src/parser_regex.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -Xclang -fopenmp -std=gnu++17
-  INCLUDES = -I/Users/kwok/Downloads/Demo_Optimization/demo/include -isystem /usr/local/include
+  INCLUDES = -I/Users/kwok/Downloads/Demo_Optimization/demo/include -I/Users/kwok/Downloads/Demo_Optimization/demo/third_library/rejit/include -isystem /usr/local/include
   OBJECT_DIR = CMakeFiles/demo.dir
   OBJECT_FILE_DIR = CMakeFiles/demo.dir/src
 
@@ -73,7 +73,8 @@ build CMakeFiles/demo.dir/src/parser_regex.cpp.o: CXX_COMPILER__demo_Release /Us
 
 build demo: CXX_EXECUTABLE_LINKER__demo_Release CMakeFiles/demo.dir/src/main.cpp.o CMakeFiles/demo.dir/src/parser_regex.cpp.o | /usr/local/lib/libomp.dylib
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk
-  LINK_LIBRARIES = /usr/local/lib/libomp.dylib
+  LINK_LIBRARIES = -Wl,-rpath,/Users/kwok/Downloads/Demo_Optimization/demo/third_library/rejit/lib  -lrejit  /usr/local/lib/libomp.dylib
+  LINK_PATH = -L/Users/kwok/Downloads/Demo_Optimization/demo/third_library/rejit/lib
   OBJECT_DIR = CMakeFiles/demo.dir
   POST_BUILD = :
   PRE_LINK = :
