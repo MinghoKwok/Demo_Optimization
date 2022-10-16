@@ -33,19 +33,16 @@ void parser_regex::initial(string dataPath) {
 //        exit(1); // terminate with error
 //    }
 
-    // Buffer
-    char buf[64 * 1024];
-
+    // Read and Store all lines in input file
+    char buf[64 * 1024];        // Buffer for fgets()
     FILE *fp;
     fp = fopen(dataPath.c_str(), "r");
-
-    // Store
-
-    vector<char*> lines;
+    vector<char*> lines;        // Store the line temporarily
+    
+    // Iterate all lines
     while (!feof(fp)) {
         fgets(buf, sizeof buf, fp);
         string str(buf);
-
         const char* tempCStr = str.c_str();
 //        cout << tempCStr << endl;
         size_t tempStrSize = str.size();
@@ -54,6 +51,8 @@ void parser_regex::initial(string dataPath) {
         memcpy(line, tempCStr, tempStrSize);
         line[tempStrSize-1] = '\0';                                    // replace '\n'
     }
+
+    // Update member variables
     lineNum_ = lines.size();
     allLines_ = (char**) malloc (lineNum_*sizeof (char *));
     for (int i = 0; i < lineNum_; i++) {
@@ -75,6 +74,7 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex() {
 
 std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_multiThread(int threadCount) {
     std::vector<std::pair<std::string, std::string>> store;
+    // Matching function, call in each thread
     auto match = [&](int threadId, int dataIdxStart, int dataIdxEnd, char** data, std::vector<std::pair<std::string, std::string>>* store, mutex* m){
 //        m->lock();
 //        cout<<threadId<<endl;
@@ -90,19 +90,22 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_multi
             }
         }
 
-        // Store the result safely
+        // Lock, store the result safely
         m->lock();
         store->insert((*store).end(), store_part.begin(), store_part.end());
         m->unlock();
     };
+
     int step = lineNum_ / threadCount;  // The number of lines needed to be matched in each thread
     mutex m;
     std::vector<thread> threads;
     for (int i = 0; i < threadCount; i++) {
-        int start = i * step;                                          // The start position in allLines_ in current thread
-        int end = i == (threadCount - 1) ? lineNum_ : start + step;
-        threads.push_back(thread(match, i, start, end, allLines_, &store, &m));
+        int start = i * step;                                                       // The start position in allLines_ in current thread
+        int end = i == (threadCount - 1) ? lineNum_ : start + step;                 // Avoid out of bound
+        threads.push_back(thread(match, i, start, end, allLines_, &store, &m));   // Run each thread
     }
+
+    // Join threads
     for_each(threads.begin(), threads.end(),
                   [](thread &t)
                   {
@@ -115,22 +118,22 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_multi
 std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_OpenMP(int threadCount) {
     std::vector<std::pair<std::string, std::string>> store;
     omp_set_num_threads(threadCount);
-    std::vector<std::vector<std::pair<std::string, std::string>>>  store_thread(4);
+    std::vector<std::vector<std::pair<std::string, std::string>>>  store_thread(4); // Store results of each thread distinctly
 
 #pragma omp parallel
     {
 #pragma omp for
         for (int i = 0; i < lineNum_; i++) {
             string str(allLines_[i]);
-//        cout<< str << "-"<<endl;
             if (str.find("/*") != str.npos) {
-//            cout<< str << "-" << endl;
                 vector<string> offset_code = get_match(REGEX_EXPRESION,str);
                 //cout<< offset_code[0] << ":" << offset_code[2] <<endl;
-                store_thread[omp_get_thread_num()].push_back(pair<string, string>(offset_code[0], offset_code[0]));
+                store_thread[omp_get_thread_num()].push_back(pair<string, string>(offset_code[0], offset_code[0])); // Store in the corresponding position of array by num of thread
             }
         }
     }
+
+    // Out of omp, combine results of each thread
     for (std::vector<std::pair<std::string, std::string>> st : store_thread) {
         store.insert(store.end(), st.begin(), st.end());
     }

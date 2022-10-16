@@ -15,11 +15,11 @@ using namespace std;
 vector<string> get_match(string reg, string inputStr) {
     vector<string> res;
 #ifdef  SIMD_MATCH
-    rejit::Regej re(reg);
+    rejit::Regej re(reg);    // API for regex with SIMD
     vector<rejit::Match> matches;   // match results
     // match by RE
     re.MatchAll(inputStr, &matches);
-    // transform to string
+    // transform the match result to string
     size_t s = (matches[0].end - matches[0].begin)/sizeof(char);
     memcpy(buffer, matches[0].begin, s);
     buffer[s] = '\0';

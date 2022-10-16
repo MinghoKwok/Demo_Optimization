@@ -14,7 +14,7 @@ public:
     std::vector<std::pair<std::string, std::string>> match_regex_OpenMP(int threadCount);
     std::vector<std::pair<std::string, std::string>> match_noRegex_OpenMP(int threadCount);
 private:
-    int lineNum_;
-    char** allLines_ = nullptr;
+    int lineNum_;                   // How many lines the input file has
+    char** allLines_ = nullptr;     // Store all lines of input file
 };
 #endif //__PARSER_REGEX_H__
