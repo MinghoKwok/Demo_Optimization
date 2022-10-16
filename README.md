@@ -96,7 +96,7 @@ The result of experiment could also prove this point. In order to make the compa
 
 Unfortunately, I didn't find methods in rejit API which could complete this requirement. So in this part, the SIMD way could not be compared. The visulized result is followed. As we can see, after replacing regex, the running time decreased so much.
 
-![image-20221015000059647](images/image-20221015000059647.png)
+<img src="images/image-20221015000059647.png" alt="image-20221015000059647" style="zoom:50%;" />
 
 
 
@@ -112,9 +112,9 @@ Finally, after trying such optimization methods, I redesigned the experiment to 
 
 Through the visulized results below, we could found that SIMD is very powerful while being utilized in regex match. Multi-thread methods and OpenMP are useful too, especially when the file size is large. It seems that OpenMP is not more powerful than multi-thread methods writen by myself in this situation.
 
-![image-20221015231259588](images/image-20221015231259588.png)
+<img src="images/image-20221015231259588.png" alt="image-20221015231259588" style="zoom:50%;" />
 
-![image-20221015230608812](images/image-20221015230608812.png)
+<img src="images/image-20221015230608812.png" alt="image-20221015230608812" style="zoom:50%;" />
 
 
 
