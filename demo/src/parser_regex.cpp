@@ -52,7 +52,7 @@ void parser_regex::initial(string dataPath) {
         char* line = (char*) malloc(tempStrSize * sizeof (char));
         lines.push_back(line);
         memcpy(line, tempCStr, tempStrSize);
-        line[tempStrSize-1] = '\0';
+        line[tempStrSize-1] = '\0';                                    // replace '\n'
     }
     lineNum_ = lines.size();
     allLines_ = (char**) malloc (lineNum_*sizeof (char *));
@@ -62,7 +62,7 @@ void parser_regex::initial(string dataPath) {
 }
 
 std::vector<std::pair<std::string, std::string>> parser_regex::match_regex() {
-    std::vector<std::pair<std::string, std::string>> store;
+    std::vector<std::pair<std::string, std::string>> store;           // This type is to do further job (extract offset and code from one line) easily
     for (int i = 0; i < lineNum_; i++) {
         string str(allLines_[i]);
         if (str.find("/*") != str.npos) {   // To avoid unuseful matching
@@ -89,15 +89,17 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_multi
                 store_part.push_back(pair<string, string>(offset_code[0], offset_code[0]));
             }
         }
+
+        // Store the result safely
         m->lock();
         store->insert((*store).end(), store_part.begin(), store_part.end());
         m->unlock();
     };
-    int step = lineNum_ / threadCount;
+    int step = lineNum_ / threadCount;  // The number of lines needed to be matched in each thread
     mutex m;
     std::vector<thread> threads;
     for (int i = 0; i < threadCount; i++) {
-        int start = i * step;
+        int start = i * step;                                          // The start position in allLines_ in current thread
         int end = i == (threadCount - 1) ? lineNum_ : start + step;
         threads.push_back(thread(match, i, start, end, allLines_, &store, &m));
     }
