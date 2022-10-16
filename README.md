@@ -112,7 +112,7 @@ Finally, after trying such optimization methods, I redesigned the experiment to 
 
 Through the visulized results below, we could found that SIMD is very powerful while being utilized in regex match. Multi-thread methods and OpenMP are useful too, especially when the file size is large. It seems that OpenMP is not more powerful than multi-thread methods writen by myself in this situation.
 
-<img src="images/image-20221015231259588.png" alt="image-20221015231259588" style="zoom:50%;" />
+<img src="images/image-20221015231259588.png" alt="image-20221015231259588" style="zoom:20%;" />
 
 <img src="images/image-20221015230608812.png" alt="image-20221015230608812" style="zoom:50%;" />
 
