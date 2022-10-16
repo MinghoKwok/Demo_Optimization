@@ -76,10 +76,10 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex() {
 std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_multiThread(int threadCount) {
     std::vector<std::pair<std::string, std::string>> store;
     auto match = [&](int threadId, int dataIdxStart, int dataIdxEnd, char** data, std::vector<std::pair<std::string, std::string>>* store, mutex* m){
-        m->lock();
+//        m->lock();
 //        cout<<threadId<<endl;
 //        cout<<dataIdxStart << "-" << dataIdxEnd <<endl;
-        m->unlock();
+//        m->unlock();
         vector<pair<string, string>> store_part;
         for (int j = dataIdxStart; j < dataIdxEnd; j++) {
             string str(data[j]);

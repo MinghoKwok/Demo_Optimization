@@ -58,7 +58,7 @@ Firstly, I optimized the demo by parallel ways.
 
 It is easy to find that the progress of matching each line by regex in the ***for*** loop is so suitable to be implemented by multple threads, because each loop is independent to others.
 
-I implemented **match_regex_multiThread** function by creating threads by myself. I set 4 threads to match the strings.
+I implemented **match_regex_multiThread** function by creating threads by myself. I set 4 threads to match the strings. In order to avoid the recourse competition, I created local vector to store the results for each thread and combined them in the end by mutex lock.
 
 In this part, the running time is about **134 seconds** for 1GB file.
 
@@ -106,10 +106,12 @@ Though this method is not safe and general enough in many situations, we still c
 
 
 
-## Experiment Visualized Results
+## Visualized Results of Experiment
 
+Finally, after trying such optimization methods, I redesigned the experiment to show the progress of optimization. In order not to make the results too complex, I only maintained the results of main methods to show. (For example, methods using getline() function and multi-thread methods without SIMD are not showed).
 
+Through the visulized results below, we could found that SIMD is very powerful while being utilized in regex match. Multi-thread methods and OpenMP are useful too, especially when the file size is large. It seems that OpenMP is not more powerful than multi-thread methods writen by myself in this situation.
 
-![image-20221015230435274](images/image-20221015230435274.png)
+![image-20221015231259588](images/image-20221015231259588.png)
 
 ![image-20221015230608812](images/image-20221015230608812.png)
