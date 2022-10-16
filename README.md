@@ -54,7 +54,7 @@ Ways to optimize could be divided by two types: parallel ways and non-parallel w
 
 Firstly, I optimized the demo by parallel ways.
 
-(1)	Multiple Threads
+**(1)	Multiple Threads**
 
 It is easy to find that the progress of matching each line by regex in the ***for*** loop is so suitable to be implemented by multple threads, because each loop is independent to others.
 
@@ -62,27 +62,33 @@ I implemented **match_regex_multiThread** function by creating threads by myself
 
 In this part, the running time is about **134 seconds** for 1GB file.
 
-(2)	OpenMP
+**(2)	OpenMP**
 
 Then I think OpenMP may be better than the multi-thread function written by me. So I tried it in **match_regex_OpenMP** function.
 
 In this part, the running time is nearly the same as the multi-thread one.
 
-(3)	SIMD
+**(3)	SIMD**
 
 After implementing multi-thread ways in ***for*** loop, I began to consider optimizing regex procedure itself. Considering that it may be hard to matching one string in a multi-thread way, I think SIMD may be suitable for it.
 
-I used an API named rejit based on SIMD to optimize the regex function. This part is implemented in ***include/help_func.hpp***.
+I used an API named rejit based on SIMD to optimize the regex function. This part is implemented in ***include/help_func.hpp***. Using SIMD or not could be determined by ***#define SIMD_MATCH***. 
 
-After testing the program after using SIMD in regex function, the running time is changed less. 
+After testing the program after using SIMD in regex function, the running time is decreased over 80%. (When the input file size is 17M).
+
+Due to the result of this part of experiment,  I utilized SIMD in regex to match strings in multi-thread and OpenMP ways. Then I collect the running time to construct final experiment results.
 
 ### Non-parallel Ways
 
 After optimizing the demo by multi-thread ways, I focus on non-multi-thread part.
 
-(1) ***getline*** function of C++ took up large part of time, which was found by profiler. After searching, I learned that using ***fgets()*** of C by buffer could be quicker. Then I transformed the reading way to **fgets()** and gained a good improvement. 
+**(1)	getline() to fgets()**
 
-(2)
+***getline*** function of C++ took up large part of time, which was found by profiler. After searching, I learned that using ***fgets()*** of C by buffer could be quicker. Then I transformed the reading way to **fgets()** and gained a good improvement. 
+
+Thus, I utilized **fgets()** to all methods too.
+
+**(2)	Replace regex matching**
 
 By analyzing the complexity of regular expression, which is higher than linear ways (match and extract substring by c++ string function), and using CLion profiler to analyze the program, I guess that the performance may be much better after replacing regex ways by string functions. Of course, the standard format of the input file is required.
 
@@ -104,3 +110,6 @@ Though this method is not safe and general enough in many situations, we still c
 
 
 
+![image-20221015230435274](images/image-20221015230435274.png)
+
+![image-20221015230608812](images/image-20221015230608812.png)

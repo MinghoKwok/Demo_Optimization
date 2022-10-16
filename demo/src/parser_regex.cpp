@@ -65,11 +65,8 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex() {
     std::vector<std::pair<std::string, std::string>> store;
     for (int i = 0; i < lineNum_; i++) {
         string str(allLines_[i]);
-//        cout<< str << "-"<<endl;
-        if (str.find("/*") != str.npos) {
-//            cout<< str << "-";
+        if (str.find("/*") != str.npos) {   // To avoid unuseful matching
             vector<string> offset_code = get_match(REGEX_EXPRESION,str);
-//            cout<< offset_code[0] << ":" << offset_code[2] <<endl;
             store.push_back(pair<string, string>(offset_code[0], offset_code[0]));
         }
     }
@@ -80,8 +77,8 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_regex_multi
     std::vector<std::pair<std::string, std::string>> store;
     auto match = [&](int threadId, int dataIdxStart, int dataIdxEnd, char** data, std::vector<std::pair<std::string, std::string>>* store, mutex* m){
         m->lock();
-        cout<<threadId<<endl;
-        cout<<dataIdxStart << "-" << dataIdxEnd <<endl;
+//        cout<<threadId<<endl;
+//        cout<<dataIdxStart << "-" << dataIdxEnd <<endl;
         m->unlock();
         vector<pair<string, string>> store_part;
         for (int j = dataIdxStart; j < dataIdxEnd; j++) {
