@@ -32,7 +32,7 @@ https://drive.google.com/drive/folders/1bNLpeReT0rvGljnwWtG9r6twVEbZiEgU?usp=sha
 3. Use command ***time*** to get the running time of each function in each data scale like :
 
    ```bash
-   time ./1G_match_noRegex_OpenMP
+   $ time ./1G_match_noRegex_OpenMP
    ```
 
    

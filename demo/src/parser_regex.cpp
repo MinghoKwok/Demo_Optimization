@@ -38,7 +38,7 @@ void parser_regex::initial(string dataPath) {
     FILE *fp;
     fp = fopen(dataPath.c_str(), "r");
     vector<char*> lines;        // Store the line temporarily
-    
+
     // Iterate all lines
     while (!feof(fp)) {
         fgets(buf, sizeof buf, fp);
