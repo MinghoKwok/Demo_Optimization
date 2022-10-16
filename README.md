@@ -130,6 +130,6 @@ Through the visulized results below, we could found that SIMD is very powerful w
 * Understand some basic knowledge more deeply. For instance, I spent long time debugging multi-thread function written by myself due to something about threads and mutex.
 * Found that my former projects could be optimized better. For instance, the problem of competition in my former projects was not solved as well as this demo.
 
-### What I want to do in the Future
+### What I want to do in the future
 
 * There is still something confusing me in SIMD part. I think the function of regex using SIMD could be more powerful (maybe in other API). I haven't studied the source code of API very well.
