@@ -9,6 +9,28 @@ A small demo to show the progress of optimization in a parser
 
 Match lines with offset and assembly code in the file given in the dataset, and then store them.
 
+#### Regex and Example
+
+An example of lines in the file I want to find is:
+
+ ```
+        /*0020*/                   S2R R2, SR_TID.X ;											// |   3   : ^ : 
+ ```
+
+In this line of string, "0020" is the offset and "S2R R2, SR_TID.X" is the assembly code.
+
+Thus, as you can see, in this file, the string between "**/\***" and "**\*/**" in one line means the offset. And after a offset, there must be a string meaning its corresponding assembly code. The code is ended with " **;**". Additionally, both sides of assembly code may be some space.
+
+
+
+The regex used to match is:
+
+```c++
+"\\s*/\\*(.*)\\*/( +)(.*); (.*)"
+```
+
+
+
 ### Environment
 
 A Quad-Core Intel Core i5 CPU @ 1.4GHz with 16GB RAM on macOS Monterey.
