@@ -33,23 +33,23 @@ In order to make this regex more readable, I split it and explain each part in o
 
 ```markdown
 (1) "\\s*"
-- "        "
 
+- "        "
 * It means matching any number of space. It is to match all space before "/*0020*/".
 * "\s" is to match space. In C++, it should be written as "\\s".
   
   
 (2)	"/\\*(.*)\\*/"
-- "/*0020*/"
 
+- "/*0020*/"
 * It is to match offset like "/*0020*/". 
 * "/\\*" is to match "/*" ("/" for "/"; "\\*" for "*" ，"\\" is escape character).
 * "(.*)" is to match all characters between "/*" and "*/", which is the offset we need. The content could be extracted by regex_match() function in <regex> library.
 * "\\*/" is to match "*/"
 
 (3)	"( +)(.*); (.*)"
-- "                   S2R R2, SR_TID.X ;											// |   3   : ^ : "
 
+- "                   S2R R2, SR_TID.X ;											// |   3   : ^ : "
 * ( +) is to match space after offset. In this file, there must be space between "*/" and code. 
 * By the first "(.*)", we could match the assembly code like "S2R R2, SR_TID.X ". The content could also be extracted by regex_match() function in <regex>.
 * ";" means the assembly code has ended.
