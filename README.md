@@ -39,7 +39,7 @@ In order to make this regex more readable, I split it and explain each part in o
 * "\s" is to match space. In C++, it should be written as "\\s".
   
   
-(2)	"/\\*(.*)\\*/"
+(2) "/\\*(.*)\\*/"
 
 - "/*0020*/"
 * It is to match offset like "/*0020*/". 
@@ -47,7 +47,7 @@ In order to make this regex more readable, I split it and explain each part in o
 * "(.*)" is to match all characters between "/*" and "*/", which is the offset we need. The content could be extracted by regex_match() function in <regex> library.
 * "\\*/" is to match "*/"
 
-(3)	"( +)(.*); (.*)"
+(3) "( +)(.*); (.*)"
 
 - "                   S2R R2, SR_TID.X ;											// |   3   : ^ : "
 * ( +) is to match space after offset. In this file, there must be space between "*/" and code. 
