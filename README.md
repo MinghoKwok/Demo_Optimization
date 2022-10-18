@@ -231,7 +231,7 @@ if (str.size() >= 0 && str[1] == '*' && str[0] == '/') {
   // By finding the position of ";", we could confirm the range of the sub string corresponding to code. Then we could gain the code we need ("S2R R2, SR_TID.X ").
   auto pos4 = str.find_first_of(";");
   if (pos4 == str.npos) {
-    cout << "Format Wrong: No assembly code after offset." << endl;
+    cout << "Format Wrong: without ';' after assembly code." << endl;
     continue;
   } else {
     code = str.substr(0, pos4);
@@ -245,7 +245,7 @@ if (str.size() >= 0 && str[1] == '*' && str[0] == '/') {
 
 
 
-Now we could 
+
 
 
 

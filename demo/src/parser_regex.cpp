@@ -162,7 +162,6 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_noRegex_Ope
 
 
             // (1) Erase all space " " before other characters.
-            // Then the str is "/*0020*/                   S2R R2, SR_TID.X ;											// |   3   : ^ : "
             str.erase(0, str.find_first_not_of(" "));
 
 
@@ -172,7 +171,6 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_noRegex_Ope
 
                 // (3) Match offset and assembly code
                 // Then we could gain the content between "/*" and "*/" by their positions in str.
-                // offset is "0020", which is the sub string of str.
                 auto pos1 = str.find("*/");
                 if (pos1 == str.npos) {
                     cout << "Format Wrong: No offset." << endl;
@@ -184,8 +182,6 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_noRegex_Ope
 
 
                 // (4) Erase all text before assembly code
-                // First, erase "/*0020*/".
-                // Then the str is "                   S2R R2, SR_TID.X ;											// |   3   : ^ : "
                 auto pos2 = str.find_first_of(" ");	// There must be space between "*/" and assembly code.
                 if (pos2 == str.npos) {
                     cout << "Format Wrong: No space between offset and assembly code." << endl;
@@ -193,8 +189,7 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_noRegex_Ope
                 } else {
                     str.erase(0, pos2);
                 }
-                // Second, erase all space before assembly code.
-                // Then the str is "S2R R2, SR_TID.X ;											// |   3   : ^ : "
+                // Erase all space before assembly code.
                 auto pos3 = str.find_first_not_of(" ");
                 if (pos3 == str.npos) {
                     cout << "Format Wrong: No assembly code after offset." << endl;
@@ -205,7 +200,7 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_noRegex_Ope
 
 
                 // (5) Extract assembly code
-                // By finding the position of ";", we could confirm the range of the sub string corresponding to code. Then we could gain the code we need ("S2R R2, SR_TID.X ").
+                // By finding the position of ";", we could confirm the range of the sub string corresponding to code.
                 auto pos4 = str.find_first_of(";");
                 if (pos4 == str.npos) {
                     cout << "Format Wrong: No assembly code after offset." << endl;
@@ -214,9 +209,7 @@ std::vector<std::pair<std::string, std::string>> parser_regex::match_noRegex_Ope
                     code = str.substr(0, pos4);
                 }
 
-                cout << offset << ":" << code << endl;
-
-                // Finally, store them
+                // Finally, store them 
                 store_thread[omp_get_thread_num()].push_back(pair<string, string>(offset, code));
             }
 
