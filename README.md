@@ -219,7 +219,7 @@ if (str.size() >= 0 && str[1] == '*' && str[0] == '/') {
   // Second, erase all space before assembly code.
   // Then the str is "S2R R2, SR_TID.X ;											// |   3   : ^ : "
   auto pos3 = str.find_first_not_of(" ");
-	if (pos3 == str.npos) {
+  if (pos3 == str.npos) {
     cout << "Format Wrong: No assembly code after offset." << endl;
     continue;
   } else {
