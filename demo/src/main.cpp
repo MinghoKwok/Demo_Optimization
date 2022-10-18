@@ -13,9 +13,9 @@ int main() {
 
 //    pr->match_regex_multiThread(4);
 
-    pr->match_regex_OpenMP(4);
+//    pr->match_regex_OpenMP(4);
 
-//    pr->match_noRegex_OpenMP(4);              // Not in final result
+    pr->match_noRegex_OpenMP(4);              // Not in final result
 
     return 0;
 }

@@ -55,7 +55,6 @@ In order to make this regex more readable, I split it and explain each part in o
 * ";" means the assembly code has ended.
 * The last "(.*)" is to match the content after ";". It could be extracted and analyzed to get the status of registers, though we don't do it this time.
 
-
   
 ```
 
@@ -157,6 +156,96 @@ Unfortunately, I didn't find methods in rejit API which could complete this requ
 However, if the input file is not standard enough, there may be wrong match results. Thus, the performance of methods without regex would not be showed in the final experiment result. 
 
 Though this method is not safe and general enough in many situations, we still could use more determine statements to avoid invalid regex match.
+
+
+
+* Explanation of Code
+
+Additionally, next I well explain the main code of this part line by line. In this way, both the function and the limitation of this method could be showed. Then we could know when we can use this method and when we cannot, which is mainly determined by whether the format is strict and what content we need to extract.
+
+I still use the example: 
+
+ ```
+        /*0020*/                   S2R R2, SR_TID.X ;											// |   3   : ^ : 
+ ```
+
+To simplify the code and focus on the way to deal with string, the OpenMP part and for loop are omitted.
+
+```c++
+
+// Assume that we have got the string from the input file. And the current string variable is str.
+// Assuem now str is "        /*0020*/                   S2R R2, SR_TID.X ;											// |   3   : ^ : ".
+// The situation that str is an empty string has been excluded. 
+
+
+
+// Define string variable of what we want to extract
+string offset;
+string code;
+
+
+// (1) Erase all space " " before other characters.
+// Then the str is "/*0020*/                   S2R R2, SR_TID.X ;											// |   3   : ^ : "
+str.erase(0, str.find_first_not_of(" "));		
+
+
+// (2) Judge if the head of str is "/*"
+// If the conditional statement is true, we could confirm that this str is what we need due to the format of the input file.
+if (str.size() >= 0 && str[1] == '*' && str[0] == '/') {
+  
+	// (3) Match offset and assembly code
+  // Then we could gain the content between "/*" and "*/" by their positions in str.
+  // offset is "0020", which is the sub string of str.
+  auto pos1 = str.find("*/");
+  if (pos1 == str.npos) {
+    cout << "Format Wrong: No offset." << endl;
+    continue;	// Remind: the code we analyze now is in a for loop, which is ommitted
+  }
+  else {
+    offset = str.substr(2, pos1 - 2);
+  }
+
+  
+	// (4) Erase all text before assembly code
+  // First, erase "/*0020*/".
+  // Then the str is "                   S2R R2, SR_TID.X ;											// |   3   : ^ : "
+  auto pos2 = str.find_first_of(" ");	// There must be space between "*/" and assembly code. 
+  if (pos2 == str.npos) {
+    cout << "Format Wrong: No space between offset and assembly code." << endl;
+    continue;
+  } else {
+    str.erase(0, pos2);
+  }		
+  // Second, erase all space before assembly code.
+  // Then the str is "S2R R2, SR_TID.X ;											// |   3   : ^ : "
+  auto pos3 = str.find_first_not_of(" ");
+	if (pos3 == str.npos) {
+    cout << "Format Wrong: No assembly code after offset." << endl;
+    continue;
+  } else {
+    str.erase(0, pos3);
+  }
+
+  
+	// (5) Extract assembly code
+  // By finding the position of ";", we could confirm the range of the sub string corresponding to code. Then we could gain the code we need ("S2R R2, SR_TID.X ").
+  auto pos4 = str.find_first_of(";");
+  if (pos4 == str.npos) {
+    cout << "Format Wrong: No assembly code after offset." << endl;
+    continue;
+  } else {
+    code = str.substr(0, pos4);
+  }
+  
+  
+  // Finally, store them
+	store_thread[omp_get_thread_num()].push_back(pair<string, string>(offset, code));
+}
+```
+
+
+
+Now we could 
 
 
 
