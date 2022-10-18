@@ -193,7 +193,7 @@ str.erase(0, str.find_first_not_of(" "));
 // If the conditional statement is true, we could confirm that this str is what we need due to the format of the input file.
 if (str.size() >= 0 && str[1] == '*' && str[0] == '/') {
   
-	// (3) Match offset and assembly code
+  // (3) Match offset and assembly code
   // Then we could gain the content between "/*" and "*/" by their positions in str.
   // offset is "0020", which is the sub string of str.
   auto pos1 = str.find("*/");
@@ -206,7 +206,7 @@ if (str.size() >= 0 && str[1] == '*' && str[0] == '/') {
   }
 
   
-	// (4) Erase all text before assembly code
+  // (4) Erase all text before assembly code
   // First, erase "/*0020*/".
   // Then the str is "                   S2R R2, SR_TID.X ;											// |   3   : ^ : "
   auto pos2 = str.find_first_of(" ");	// There must be space between "*/" and assembly code. 
@@ -227,7 +227,7 @@ if (str.size() >= 0 && str[1] == '*' && str[0] == '/') {
   }
 
   
-	// (5) Extract assembly code
+  // (5) Extract assembly code
   // By finding the position of ";", we could confirm the range of the sub string corresponding to code. Then we could gain the code we need ("S2R R2, SR_TID.X ").
   auto pos4 = str.find_first_of(";");
   if (pos4 == str.npos) {
@@ -239,7 +239,7 @@ if (str.size() >= 0 && str[1] == '*' && str[0] == '/') {
   
   
   // Finally, store them
-	store_thread[omp_get_thread_num()].push_back(pair<string, string>(offset, code));
+  store_thread[omp_get_thread_num()].push_back(pair<string, string>(offset, code));
 }
 ```
 
